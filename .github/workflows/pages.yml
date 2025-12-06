@@ -28,15 +28,18 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        working-directory: ./frontend
         run: npm install
 
       - name: Build
+        working-directory: ./frontend
         run: npm run build
 
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build   # CRA output folder
+          # CRA build output is inside the frontend folder
+          path: ./frontend/build
 
   deploy:
     needs: build
